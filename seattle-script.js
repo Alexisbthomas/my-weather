@@ -17,8 +17,31 @@ setText("wind", seattleWeather.current_weather.windspeed);
 setText("code", seattleWeather.current_weather.weathercode);
 })
 
-element.addEventListener("click", myFunction);
+temp.addEventListener("click", myFunction);
 
 function myFunction() {
   alert ("Weather Alert!");
 }
+
+function fetchSeattleWeather() {
+  const requestOptions = {
+  method: "GET",
+  redirect: "follow"
+};
+
+fetch("https://api.open-meteo.com/v1/forecast?latitude=47.61&current_weather=true&longitude=-122.33", requestOptions)
+  .then((response) => response.json())
+  .then(function(result){
+   console.log(result);
+   seattleWeather = result;
+   console.log(seattleWeather);
+   console.log(seattleWeather.current_weather.temperature);
+  })
+  .catch((error) => console.error(error));
+  }
+fetchseattleWeather();
+   function updateWeatherCard() {
+        setText("temp", seattleWeather.current.temperature);
+        setText("windSpeed", seattleWeather.current.windSpeed);
+
+   }
